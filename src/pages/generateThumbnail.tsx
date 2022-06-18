@@ -1,8 +1,11 @@
+import downloadjs from "downloadjs";
+import html2canvas from "html2canvas";
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { TwitterPicker } from "react-color";
 
 export default function generateThumbnail() {
+  const thumbnailDiv = useRef(null);
   const [thumbnailData, setThumbnailData] = useState({
     thumbnailTitle: "",
   });
@@ -24,6 +27,14 @@ export default function generateThumbnail() {
       thumbnailTitle: value,
     });
   }
+  const generateImage = async (el) => {
+    const canvas = await html2canvas(el);
+    const dataURL = canvas.toDataURL("image/png");
+    downloadjs(dataURL, "download.png", "image/png");
+    // html2canvas(el).then(canvas => {
+    //     document.body.appendChild(canvas);
+    // });
+  };
   return (
     <div className="h-screen w-screen flex flex-col justify-between items-center relative">
       <Head>
@@ -68,11 +79,21 @@ export default function generateThumbnail() {
 
         <h2 className="mt-5">Ugly Preview :</h2>
         <div
+          ref={thumbnailDiv}
           style={{ background: bgColor }}
           className="thumbnail-card mt-10  p-5 h-32 mx-auto  bg-gray-500 rounded-lg"
         >
           <h2>{thumbnailData.thumbnailTitle}</h2>
         </div>
+        <button
+          onClick={() => {
+            const elements = thumbnailDiv.current;
+            generateImage(elements);
+          }}
+          className="p-3 bg-blue-500"
+        >
+          Get Image
+        </button>
       </div>
     </div>
   );
