@@ -1,3 +1,4 @@
+import TemplateOptionsPanel from '@/components/TemplateOptionsPanel';
 import TemplatePanel from '@/components/TemplatePanel';
 import downloadjs from 'downloadjs';
 import html2canvas from 'html2canvas';
@@ -44,6 +45,7 @@ export default function generateThumbnail() {
       </Head>
       <div className="flex h-screen">
         <TemplatePanel />
+        <TemplateOptionsPanel />
         <div className="flex flex-1 flex-col text-2xl mt-4 text-center pt-8 justify-center">
           <h1>Generate a Thumbnail !</h1>
 

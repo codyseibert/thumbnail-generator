@@ -4,10 +4,8 @@ import TemplateCard from './TemplateCard';
 
 export default function TemplatePanel() {
   return (
-    <div className="w-96 bg-gray-100 overflow-y-scroll">
-      <h1 className="ml-4 mt-4  text-gray-600 text-5xl">
-        Templates
-      </h1>
+    <div className="p-4 w-96 bg-gray-100 overflow-y-scroll">
+      <h1 className="text-gray-600 text-5xl">Templates</h1>
 
       <TemplateCard />
       <TemplateCard />
