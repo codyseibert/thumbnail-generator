@@ -4,6 +4,7 @@ import type React from 'react';
 import Head from 'next/head';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { SketchPicker, TwitterPicker } from 'react-color';
 
 export default function Home() {
   const router = useRouter();
@@ -12,6 +13,8 @@ export default function Home() {
     email: '',
     password: '',
   });
+
+  const [color, setColor] = useState('#000000');
 
   const { mutate: register } = trpc.useMutation(
     ['register'],
@@ -49,7 +52,16 @@ export default function Home() {
             type="password"
             placeholder="password"
           />
-          <button className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm font-medium text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <TwitterPicker
+            color={color}
+            onChangeComplete={(color) =>
+              setColor(color.hex)
+            }
+          />
+          <button
+            style={{ background: color }}
+            className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm font-medium text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
             Register
           </button>
         </form>
