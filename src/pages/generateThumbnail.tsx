@@ -8,10 +8,10 @@ export default function generateThumbnail() {
     })
     function onSumbit(e: React.SyntheticEvent) {
         e.preventDefault()
-        setThumbnailData({
-            ...thumbnailData,
-            thumbnailTitle: ''
-        })
+        // setThumbnailData({
+        //     ...thumbnailData,
+        //     thumbnailTitle: ''
+        // })
         console.log(thumbnailData)
     }
 
@@ -32,14 +32,20 @@ export default function generateThumbnail() {
                 <h1>Generate a Thumbnail !</h1>
 
                 <form onSubmit={onSumbit}>
-                    <label htmlFor="title">Thumbnail Title : {thumbnailData.thumbnailTitle}</label>
+                   
                     <br></br>
                     <input type="text" name="title" id="title" onChange={formData} value={thumbnailData.thumbnailTitle} />
                     <br />
-                    <button type="submit">Done</button>
+                    <button type="submit" className="bg-blue-600 rounded-md p-3">Done</button>
                 </form>
-
+                <h2 className="mt-5">Ugly Preview :</h2>
+                <div className="thumbnail-card mt-10  p-5 h-32 mx-auto  bg-gray-500 rounded-lg">
+                    
+                <h2>{thumbnailData.thumbnailTitle}</h2>
             </div>
+            </div>
+
+            
         </div>
     )
 }
