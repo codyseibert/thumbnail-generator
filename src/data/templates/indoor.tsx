@@ -25,6 +25,7 @@ export const INDOOR = {
   ] as Editable[],
   defaultOptions: {
     line1Text: 'INDOOR',
+    bgColor: '#333333',
     txtColor: '#00FF00',
   },
   template: (options: any) => {

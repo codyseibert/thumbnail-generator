@@ -13,9 +13,10 @@ interface TemplateStoreState {
   setTemplate: (template: any) => void;
   setOptions: (options: any) => void;
   setEditables: (editables: Editable[]) => void;
+  isSelected: () => boolean;
 }
 
-const useStore = create<TemplateStoreState>((set: Function) => ({
+const useStore = create<TemplateStoreState>((set: Function, get: Function) => ({
   options: {},
   editables: [],
   template: () => null,
@@ -28,6 +29,9 @@ const useStore = create<TemplateStoreState>((set: Function) => ({
   setEditables : (newEditables: Editable[]) => {
     set({ editables: newEditables})
   },
+  isSelected: () => {
+    return Object.keys(get().options).length > 0;
+  }
 } ))
  
 export const useTemplateStore = useStore

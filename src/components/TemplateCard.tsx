@@ -11,6 +11,7 @@ type Template = {
   defaultOptions: any;
   template: any;
   editables: Editable[];
+  onSelect: Function;
 };
 
 export default function TemplateCard({
@@ -20,15 +21,8 @@ export default function TemplateCard({
   defaultOptions,
   template,
   editables,
+  onSelect,
 }: Template) {
-  const templateStore = useTemplateStore();
-
-  const use = () => {
-    templateStore.setOptions(defaultOptions);
-    templateStore.setTemplate(template);
-    templateStore.setEditables(editables);
-  };
-
   return (
     <div className="flex justify-center mt-10">
       <div className="p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all transform duration-500">
@@ -46,7 +40,13 @@ export default function TemplateCard({
           </p>
           <div className="mt-4 mb-2 flex justify-end pl-4 pr-2">
             <button
-              onClick={use}
+              onClick={() =>
+                onSelect({
+                  defaultOptions,
+                  template,
+                  editables,
+                })
+              }
               className="text-lg block font-semibold py-2 px-6 text-green-100 hover:text-white bg-green-400 rounded-lg shadow hover:shadow-md transition duration-300"
             >
               Use
