@@ -1,3 +1,4 @@
+import Header from '@/components/Header';
 import TemplateOptionsPanel from '@/components/TemplateOptionsPanel';
 import TemplatePanel from '@/components/TemplatePanel';
 import TemplatePreview from '@/components/TemplatePreview';
@@ -10,6 +11,7 @@ export default function generateThumbnail() {
       <Head>
         <title>Generate Thumbnail</title>
       </Head>
+      <Header />
       <div className="flex h-screen">
         <TemplatePanel />
         <TemplateOptionsPanel />

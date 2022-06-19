@@ -35,12 +35,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="shortcut icon" href="/favicon.ico?v=2" />
       </Head>
       <Component {...pageProps} />
+      <Footer />
     </>
   );
 }
 
 import { withTRPC } from '@trpc/next';
 import type { AppRouter } from '@/backend/router';
+import Footer from '@/components/Footer';
 
 function getBaseUrl() {
   if (process.browser) return '';

@@ -17,8 +17,8 @@ export default function TemplatePreview() {
   };
 
   return (
-    <div className="flex flex-1 flex-col h-screen justify-center text-center">
-      <h1 className="text-5xl mb-4">Preview</h1>
+    <div className="p-4 flex flex-1 flex-col h-screen justify-center text-center">
+      <h1 className="text-2xl mb-4">Preview</h1>
 
       <div
         ref={thumbnailDiv}
@@ -27,7 +27,7 @@ export default function TemplatePreview() {
           width: 1024,
           height: 576,
         }}
-        className="mx-auto border-gray-100 border"
+        className="mx-auto"
       >
         <h2 style={{ color: templateOptions.txtColor }}>
           {templateOptions.line1Text}
