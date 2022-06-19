@@ -17,6 +17,7 @@ const templates = [
       txtColor: '#ffffff',
     },
     template: (templateOptions: any) => {
+      console.log(templateOptions)
       return (
         <div
           className="h-full relative"

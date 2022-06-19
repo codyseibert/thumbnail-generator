@@ -7,17 +7,14 @@ export default function TemplateOptionsPanel() {
   const templateOptions = useTemplateStore();
   const { editables } = templateOptions;
 
-  React.useEffect(()=>{
-    console.log(editables[0].label)
-  }
-  , [])
+  
 
   function createInputGroup() {
-    return editables.map((item) => {
+    return editables.map((item , index) => {
       if (item.type === "text") {
         return (
           <InputGroup
-            key={item.key}
+            key={index}
             label={item.label}
             onChange={(e: any) => {
               templateOptions.setEditables({
@@ -26,16 +23,16 @@ export default function TemplateOptionsPanel() {
             }}
             value={item.optionKey}
           />
-        );
+        )
       } else if (item.type === "colorPicker" && item.optionKey === "bgColor") {
         return (
           <>
             <h2  className="text-md mb-6">{item.label}</h2>
             <TwitterPicker
-            key={item.key}
+            key={index}
               color={item.optionKey}
               onChangeComplete={({ hex }) =>
-                templateOptions.setEditables({
+                templateOptions.setOptions({
                   bgColor: hex,
                 })
               }
@@ -47,11 +44,11 @@ export default function TemplateOptionsPanel() {
           <>
             <h2  className="text-md mb-6">{item.label}</h2>
             <TwitterPicker
-            key={item.key}
+            key={index}
               color={item.optionKey}
               onChangeComplete={({ hex }) =>
-                templateOptions.setEditables({
-                  bgColor: hex,
+                templateOptions.setOptions({
+                  txtColor: hex,
                 })
               }
             />

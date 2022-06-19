@@ -11,7 +11,7 @@ export default function TemplatePreview() {
   );
 
   const templateOptions = useTemplateStore(
-    (state: any) => state.editables
+    (state: any) => state.options
   );
 
   const generateImage = (el: any) => {
