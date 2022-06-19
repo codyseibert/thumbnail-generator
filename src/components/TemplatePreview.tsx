@@ -6,6 +6,10 @@ import React, { useRef } from 'react';
 export default function TemplatePreview() {
   const thumbnailDiv = useRef(null);
 
+  const template = useTemplateStore(
+    (state: any) => state.template
+  );
+
   const templateOptions = useTemplateStore(
     (state: any) => state.options
   );
@@ -23,21 +27,12 @@ export default function TemplatePreview() {
       <div
         ref={thumbnailDiv}
         style={{
-          background: templateOptions.bgColor,
           width: 1024,
           height: 576,
         }}
         className="mx-auto"
       >
-        <h2 style={{ color: templateOptions.txtColor }}>
-          {templateOptions.line1Text}
-        </h2>
-        <h2 style={{ color: templateOptions.txtColor }}>
-          {templateOptions.line2Text}
-        </h2>
-        <h2 style={{ color: templateOptions.txtColor }}>
-          {templateOptions.line3Text}
-        </h2>
+        {template(templateOptions)}
       </div>
 
       <button
@@ -47,7 +42,7 @@ export default function TemplatePreview() {
         }}
         className="mx-auto mt-4 w-40 p-3 bg-blue-500"
       >
-        Get Image
+        Generate Image
       </button>
     </div>
   );

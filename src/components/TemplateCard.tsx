@@ -6,6 +6,7 @@ type Template = {
   description: string;
   templateImage: string;
   defaultOptions: any;
+  template: any;
 };
 
 export default function TemplateCard({
@@ -13,11 +14,13 @@ export default function TemplateCard({
   description,
   templateImage,
   defaultOptions,
+  template,
 }: Template) {
-  const templateOptions = useTemplateStore();
+  const templateStore = useTemplateStore();
 
   const use = () => {
-    templateOptions.setOptions(defaultOptions);
+    templateStore.setOptions(defaultOptions);
+    templateStore.setTemplate(template);
   };
 
   return (
