@@ -1,4 +1,7 @@
-import { useTemplateStore } from '@/store/templateStore';
+import {
+  Editable,
+  useTemplateStore,
+} from '@/store/templateStore';
 import React from 'react';
 
 type Template = {
@@ -7,6 +10,7 @@ type Template = {
   templateImage: string;
   defaultOptions: any;
   template: any;
+  editables: Editable[];
 };
 
 export default function TemplateCard({
@@ -15,12 +19,14 @@ export default function TemplateCard({
   templateImage,
   defaultOptions,
   template,
+  editables,
 }: Template) {
   const templateStore = useTemplateStore();
 
   const use = () => {
     templateStore.setOptions(defaultOptions);
     templateStore.setTemplate(template);
+    templateStore.setEditables(editables);
   };
 
   return (

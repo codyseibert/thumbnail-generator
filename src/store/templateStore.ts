@@ -1,46 +1,33 @@
 import create from 'zustand';
 
-const useStore = create((set: Function) => ({
-  options: {},
-  editables : [
-    { 
-      key : 1,
-      label : 'Line 1 Text',
-      optionKey : 'line1Text',
-      type : 'text'
-    },
-    {
-      key : 2,
-      label : 'Line 2 Text',
-      optionKey : 'line2Text',
-      type : 'text'
-    },
-    {
-      key : 3,
-      label : 'Line 3 Text',
-      optionKey : 'line3Text',
-      type : 'text'
-    },
-    {
-      key : 4,
-      label : 'Background Color',
-      optionKey : 'bgColor',
-      type : 'colorPicker'
-    },
-    {
-      key : 5,
-      label : 'Text Color',
-      optionKey : 'txtColor',
-      type : 'colorPicker'
-    }
-  ],
-  template: () => null,
-  setTemplate: (template: any) => set({template}),
-  setOptions: (newOptions: any) => set((state: any) => 
-    ({ options: {...state.options, ...newOptions}})),
+export type Editable = {
+  label: string;
+  optionKey: string;
+  type: string;
+}
 
-  setEditables : (newEditables: any) => set((state: any) => 
-    ({ editables: {...state.editables, ...newEditables}})),
+interface TemplateStoreState {
+  template: any;
+  options: any;
+  editables: Editable[];
+  setTemplate: (template: any) => void;
+  setOptions: (options: any) => void;
+  setEditables: (editables: Editable[]) => void;
+}
+
+const useStore = create<TemplateStoreState>((set: Function) => ({
+  options: {},
+  editables: [],
+  template: () => null,
+  setTemplate: (template: any) => {
+    set({template})
+  },
+  setOptions: (newOptions: any) => {
+    set((state: any) => ({ options: {...state.options, ...newOptions}}))
+  },
+  setEditables : (newEditables: Editable[]) => {
+    set({ editables: newEditables})
+  },
 } ))
  
 export const useTemplateStore = useStore

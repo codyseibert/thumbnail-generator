@@ -11,15 +11,13 @@ export default function TemplatePreview() {
   );
 
   const templateOptions = useTemplateStore(
-    (state: any) => state.editables
+    (state: any) => state.options
   );
 
   const generateImage = (el: any) => {
-    
-    htmlToImage.toPng(el)
-  .then(function (dataUrl) {
-    downloadjs(dataUrl, 'download.png', 'image/png');
-  });
+    htmlToImage.toPng(el).then(function (dataUrl) {
+      downloadjs(dataUrl, 'download.png', 'image/png');
+    });
   };
 
   return (

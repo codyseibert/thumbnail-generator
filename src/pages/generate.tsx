@@ -5,8 +5,7 @@ import TemplatePreview from '@/components/TemplatePreview';
 import Head from 'next/head';
 import React from 'react';
 
-
-export default function generateThumbnail() {
+export default function GeneratePage() {
   return (
     <div className="">
       <Head>

@@ -5,7 +5,6 @@ import type React from 'react';
 import { useState } from 'react';
 import { TwitterPicker } from 'react-color';
 
-
 export default function Home() {
   const router = useRouter();
 
@@ -13,7 +12,6 @@ export default function Home() {
     email: '',
     password: '',
   });
-  console.log(form)
   const [color, setColor] = useState('#000000');
 
   const { mutate: register } = trpc.useMutation(
