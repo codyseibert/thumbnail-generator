@@ -1,6 +1,6 @@
 import { useTemplateStore } from '@/store/templateStore';
 import downloadjs from 'downloadjs';
-import html2canvas from 'html2canvas';
+import * as htmlToImage from 'html-to-image';
 import React, { useRef } from 'react';
 
 export default function TemplatePreview() {
@@ -14,10 +14,14 @@ export default function TemplatePreview() {
     (state: any) => state.options
   );
 
-  const generateImage = async (el: any) => {
-    const canvas = await html2canvas(el);
-    const dataURL = canvas.toDataURL('image/png');
-    downloadjs(dataURL, 'download.png', 'image/png');
+  const generateImage = (el: any) => {
+    // const canvas = await html2canvas(el);
+    // const dataURL = canvas.toDataURL('image/png');
+    // downloadjs(dataURL, 'download.png', 'image/png');
+    htmlToImage.toPng(el)
+  .then(function (dataUrl) {
+    downloadjs(dataUrl, 'download.png', 'image/png');
+  });
   };
 
   return (

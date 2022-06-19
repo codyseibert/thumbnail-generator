@@ -5,6 +5,7 @@ import TemplatePreview from '@/components/TemplatePreview';
 import Head from 'next/head';
 import React from 'react';
 
+
 export default function generateThumbnail() {
   return (
     <div className="">
