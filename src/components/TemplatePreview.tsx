@@ -11,13 +11,11 @@ export default function TemplatePreview() {
   );
 
   const templateOptions = useTemplateStore(
-    (state: any) => state.options
+    (state: any) => state.editables
   );
 
   const generateImage = (el: any) => {
-    // const canvas = await html2canvas(el);
-    // const dataURL = canvas.toDataURL('image/png');
-    // downloadjs(dataURL, 'download.png', 'image/png');
+    
     htmlToImage.toPng(el)
   .then(function (dataUrl) {
     downloadjs(dataUrl, 'download.png', 'image/png');
