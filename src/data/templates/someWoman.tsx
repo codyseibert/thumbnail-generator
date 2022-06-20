@@ -1,3 +1,4 @@
+import React from 'react';
 import { Editable } from '@/store/templateStore';
 
 export const THINGS_TO_NEVER_WEAR = {

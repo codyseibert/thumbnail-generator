@@ -1,9 +1,8 @@
-import { getTemplates, Template } from '@/api/getTemplates';
+import { Template } from '@/api/getTemplates';
 import { useTemplates } from '@/hooks/useTemplates';
 import { useTemplateStore } from '@/store/templateStore';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import React from 'react';
 import TemplateCard from './TemplateCard';
 
 export default function TemplatePanel() {
@@ -22,14 +21,10 @@ export default function TemplatePanel() {
     },
   });
 
-  const onThumbnailClick = ({
-    defaultOptions,
-    template,
-    editables,
-  }) => {
-    templateStore.setOptions(defaultOptions);
-    templateStore.setTemplate(template);
-    templateStore.setEditables(editables);
+  const onThumbnailClick = (template: Template) => {
+    templateStore.setOptions(template.defaultOptions);
+    templateStore.setTemplate(template.template);
+    templateStore.setEditables(template.editables);
   };
 
   return (
@@ -42,15 +37,10 @@ export default function TemplatePanel() {
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        templates!.map((template) => (
+        templates?.map((template) => (
           <TemplateCard
-            template={template.template}
-            editables={template.editables}
-            defaultOptions={template.defaultOptions}
+            template={template}
             key={template.templateId}
-            name={template.name}
-            description={template.description}
-            templateImage={template.templateImage}
             onSelect={onThumbnailClick}
           />
         ))

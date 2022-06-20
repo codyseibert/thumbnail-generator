@@ -1,3 +1,4 @@
+import React from 'react';
 import { Editable } from '@/store/templateStore';
 
 export const INDOOR = {

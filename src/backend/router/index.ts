@@ -1,10 +1,10 @@
-import * as trpc from "@trpc/server";
-import { z } from "zod";
-import { prisma } from "@/backend/utils/prisma";
+import * as trpc from '@trpc/server';
+import { z } from 'zod';
+import { prisma } from '@/backend/utils/prisma';
 
 export const appRouter = trpc
   .router()
-  .mutation("register", {
+  .mutation('register', {
     input: z.object({
       email: z.string(),
       password: z.string(),

@@ -1,6 +1,6 @@
-import { getTemplates, Template } from "@/api/getTemplates";
-import { useCallback } from "react";
-import { useQuery } from "react-query";
+import { getTemplates, Template } from '@/api/getTemplates';
+import { useCallback } from 'react';
+import { useQuery } from 'react-query';
 
 export const useTemplates = ({
   onSuccess
@@ -16,4 +16,4 @@ export const useTemplates = ({
     }
   );
   return {templates, isLoading};
-}
+};

@@ -1,6 +1,6 @@
-import { appRouter, AppRouter } from "@/backend/router";
-import { inferProcedureOutput } from "@trpc/server";
-import * as trpcNext from "@trpc/server/adapters/next";
+import { appRouter, AppRouter } from '@/backend/router';
+import { inferProcedureOutput } from '@trpc/server';
+import * as trpcNext from '@trpc/server/adapters/next';
 
 export default trpcNext.createNextApiHandler({
   router: appRouter,
@@ -8,5 +8,5 @@ export default trpcNext.createNextApiHandler({
 });
 
 export type inferQueryResponse<
-  TRouteKey extends keyof AppRouter["_def"]["queries"]
-> = inferProcedureOutput<AppRouter["_def"]["queries"][TRouteKey]>;
+  TRouteKey extends keyof AppRouter['_def']['queries']
+> = inferProcedureOutput<AppRouter['_def']['queries'][TRouteKey]>;

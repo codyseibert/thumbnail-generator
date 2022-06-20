@@ -1,8 +1,14 @@
+import React, { SyntheticEvent } from 'react';
+
 export default function InputGroup({
   onChange,
   value,
   label,
-}: any) {
+}: {
+  onChange: (e: SyntheticEvent) => void;
+  value: string;
+  label: string;
+}) {
   return (
     <div className="mb-8">
       <label className="text-md block mb-2">{label}</label>
