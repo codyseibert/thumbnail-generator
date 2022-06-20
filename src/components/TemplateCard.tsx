@@ -1,8 +1,5 @@
-import {
-  Editable,
-  useTemplateStore
-} from '@/store/templateStore';
-import React from 'react';
+import { Editable, useTemplateStore } from "@/store/templateStore";
+import React from "react";
 
 type Template = {
   name: string;
@@ -12,6 +9,7 @@ type Template = {
   template: any;
   editables: Editable[];
   onSelect: Function;
+  isPremium: boolean;
 };
 
 export default function TemplateCard({
@@ -22,9 +20,8 @@ export default function TemplateCard({
   template,
   editables,
   onSelect,
+  isPremium,
 }: Template) {
-<<<<<<< HEAD
-=======
   const templateStore = useTemplateStore();
 
   const use = () => {
@@ -32,8 +29,7 @@ export default function TemplateCard({
     templateStore.setTemplate(template);
     templateStore.setEditables(editables); //set the defaults
   };
- 
->>>>>>> b5f4610 (feat : image upload and postioning)
+
   return (
     <div className="flex justify-center mt-10">
       <div className="p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all transform duration-500">
@@ -44,11 +40,9 @@ export default function TemplateCard({
         />
         <div className="mt-4">
           <h1 className="text-2xl font-bold text-gray-700">
-            {name}
+            {isPremium ? <Lock size={32} /> : name}
           </h1>
-          <p className="text-sm mt-2 text-gray-700">
-            {description}
-          </p>
+          <p className="text-sm mt-2 text-gray-700">{description}</p>
           <div className="mt-4 mb-2 flex justify-end pl-4 pr-2">
             <button
               onClick={() =>

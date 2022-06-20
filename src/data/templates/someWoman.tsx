@@ -1,5 +1,5 @@
 import { Editable } from '@/store/templateStore';
-
+import '../../../public/pngegg.png';
 
 export const THINGS_TO_NEVER_WEAR = {
   name: 'Some Woman',
@@ -50,16 +50,20 @@ export const THINGS_TO_NEVER_WEAR = {
   template: (options: any) => {
     return (
       <div
-        className="h-full relative"
+        className="h-full relative overflow-hidden"
         style={{
           backgroundColor: options.bgColor,
         }}
       > 
+      
+        <img src='pngegg.png' className="absolute  cross bg-red-400 rounded-full " style={{"width" : "80px" , "height" : "80px", "margin-left" : "200px" , "margin-top" : "-15px" }} />
+      
       <div className="img-container relative h-full" style={{ "width" : "55%"}}>
         <img src={options.foreImage} className="z-30 absolute overflow-hidden " 
         style={{ "width" : "100%", "height" : "100%" , "top" : "0", "left" : "0"}}
         />
       </div>
+      
         <h1
           className="absolute z-20 bg-white text-black text-5xl p-4"
           style={{

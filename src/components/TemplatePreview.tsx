@@ -3,6 +3,8 @@ import downloadjs from 'downloadjs';
 import * as htmlToImage from 'html-to-image';
 import React, { useRef } from 'react';
 
+
+
 export default function TemplatePreview() {
   const thumbnailDiv = useRef(null);
   const template = useTemplateStore(
