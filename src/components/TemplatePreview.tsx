@@ -3,17 +3,20 @@ import downloadjs from 'downloadjs';
 import * as htmlToImage from 'html-to-image';
 import React, { useRef } from 'react';
 
+
+
 export default function TemplatePreview() {
   const thumbnailDiv = useRef(null);
-
   const template = useTemplateStore(
     (state: any) => state.template
-  );
-
+    );
+    
+    
   const templateOptions = useTemplateStore(
     (state: any) => state.options
   );
 
+  
   const generateImage = (el: any) => {
     htmlToImage.toPng(el).then(function (dataUrl) {
       downloadjs(dataUrl, 'download.png', 'image/png');

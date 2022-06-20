@@ -8,6 +8,7 @@ export type Template = {
   templateImage: string;
   template: any;
   editables: Editable[];
+  isPremium: boolean;
   defaultOptions: { [key: string]: string };
 };
 

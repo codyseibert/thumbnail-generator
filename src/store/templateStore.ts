@@ -32,6 +32,6 @@ const useStore = create<TemplateStoreState>((set: any, get: any) => ({
   isSelected: () => {
     return Object.keys(get().options).length > 0;
   }
-} ));
+}));
  
 export const useTemplateStore = useStore;

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Editable } from '@/store/templateStore';
 
+
 export const INDOOR = {
   name: 'Bubbles',
+  isPremium : true,
   description: 'Some guy with dark bg and colorful bubbles',
   templateImage:
     'https://www.picmaker.com/assets/images/YoutubeThumbnail/YouTube-thumbnail-maker-2.png',
@@ -23,11 +25,13 @@ export const INDOOR = {
       optionKey: 'txtColor',
       type: 'colorPicker',
     },
+    
   ] as Editable[],
   defaultOptions: {
     line1Text: 'INDOOR',
     bgColor: '#333333',
     txtColor: '#00FF00',
+    isPreimum : true,
   },
   template: (options: any) => {
     return (
@@ -36,7 +40,9 @@ export const INDOOR = {
         style={{
           backgroundColor: options.bgColor,
         }}
+
       >
+        
         <h1
           className="text-center absolute text-black text-5xl p-4"
           style={{
