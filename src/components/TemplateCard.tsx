@@ -1,6 +1,6 @@
 import {
   Editable,
-  useTemplateStore,
+  useTemplateStore
 } from '@/store/templateStore';
 import React from 'react';
 
@@ -26,9 +26,9 @@ export default function TemplateCard({
   const use = () => {
     templateStore.setOptions(defaultOptions);
     templateStore.setTemplate(template);
-    templateStore.setEditables(editables);
+    templateStore.setEditables(editables); //set the defaults
   };
-
+ 
   return (
     <div className="flex justify-center mt-10">
       <div className="p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all transform duration-500">
