@@ -1,26 +1,27 @@
+import Link from 'next/link';
+
 export default function Header() {
   return (
     <div className="drop-shadow-md px-8 relative bg-white">
       <div className="mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1 text-gray-800">
-            LOGO
+            <Link href="/">
+              <a>LOGO</a>
+            </Link>
           </div>
 
           <nav className="flex space-x-10">
+            <Link href="/templates">
+              <a className="text-base font-medium text-gray-500 hover:text-gray-900">
+                Templates
+              </a>
+            </Link>
             <a
               href="#"
               className="text-base font-medium text-gray-500 hover:text-gray-900"
             >
-              {' '}
-              Pricing{' '}
-            </a>
-            <a
-              href="#"
-              className="text-base font-medium text-gray-500 hover:text-gray-900"
-            >
-              {' '}
-              Docs{' '}
+              Pricing
             </a>
           </nav>
           <div className="flex items-center justify-end md:flex-1 lg:w-0">
@@ -28,8 +29,7 @@ export default function Header() {
               href="#"
               className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
             >
-              {' '}
-              Sign in{' '}
+              Sign in
             </a>
             <a
               href="#"
