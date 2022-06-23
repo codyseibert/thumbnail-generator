@@ -2,24 +2,35 @@ import { Template } from '@/api/getTemplates';
 import { useTemplates } from '@/hooks/useTemplates';
 import { useTemplateStore } from '@/store/templateStore';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import TemplateCard from './TemplateCard';
 
-export default function TemplatePanel() {
+export default function TemplatePanel({
+  templateId,
+}: {
+  templateId: string;
+}) {
   const templateStore = useTemplateStore();
 
   const { templates, isLoading } = useTemplates({
-    onSuccess: (allTemplates) => {
-      if (!templateStore.isSelected()) {
-        const firstTemplate = allTemplates[0];
+    onSuccess: () => null,
+  });
+
+  useEffect(() => {
+    if (!templates) return;
+    if (!templateStore.isSelected()) {
+      const firstTemplate = templates.find(
+        (template) => template.templateId === templateId
+      );
+      if (firstTemplate) {
         templateStore.setOptions(
           firstTemplate.defaultOptions
         );
         templateStore.setTemplate(firstTemplate.template);
         templateStore.setEditables(firstTemplate.editables);
       }
-    },
-  });
+    }
+  }, [templateId, templates]);
 
   const onThumbnailClick = (template: Template) => {
     templateStore.setOptions(template.defaultOptions);

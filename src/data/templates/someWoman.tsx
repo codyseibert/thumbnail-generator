@@ -1,13 +1,14 @@
 import React from 'react';
 import { Editable } from '@/store/templateStore';
 import '../../../public/pngegg.png';
+import { Template } from '@/api/getTemplates';
 
-export const THINGS_TO_NEVER_WEAR = {
+export const THINGS_TO_NEVER_WEAR: Template = {
   name: 'Some Woman',
   description: 'Dont',
   templateImage:
     'https://i.easil.com/wp-content/uploads/20210901115812/Stacked-Angled-Heading-Pink-Black-youtube-thumbnail.jpg',
-  templateId: 1,
+  templateId: '1',
   editables: [
     {
       label: 'Line 1 Text',

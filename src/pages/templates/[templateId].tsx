@@ -3,9 +3,15 @@ import TemplateOptionsPanel from '@/components/TemplateOptionsPanel';
 import TemplatePanel from '@/components/TemplatePanel';
 import TemplatePreview from '@/components/TemplatePreview';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 export default function GeneratePage() {
+  const router = useRouter();
+  const templateId = router.query.templateId as string;
+
+  console.log('templateId', templateId);
+
   return (
     <div className="">
       <Head>
@@ -13,7 +19,7 @@ export default function GeneratePage() {
       </Head>
       <Header />
       <div className="flex h-screen">
-        <TemplatePanel />
+        <TemplatePanel templateId={templateId} />
         <TemplateOptionsPanel />
         <TemplatePreview />
       </div>

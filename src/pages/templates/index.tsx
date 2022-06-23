@@ -7,7 +7,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-export default function GeneratePage() {
+export default function TemplatesPage() {
   const router = useRouter();
   const templateStore = useTemplateStore();
 
@@ -15,7 +15,7 @@ export default function GeneratePage() {
     templateStore.setOptions(template.defaultOptions);
     templateStore.setTemplate(template.template);
     templateStore.setEditables(template.editables);
-    router.push('/generate');
+    router.push(`/templates/${template.templateId}`);
   };
 
   const { templates, isLoading } = useTemplates({
