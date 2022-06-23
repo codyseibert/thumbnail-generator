@@ -22,21 +22,15 @@ export const PLAIN: Template = {
       type: 'colorPicker',
     },
     {
-      label: 'Text Color',
-      optionKey: 'txtColor',
-      type: 'colorPicker',
-    },
-    {
       label: 'Fore Ground Image',
       optionKey: 'foreImage',
       type: 'imagePicker',
     },
   ] as Editable[],
   defaultOptions: {
-    line1Text: 'useState Hook',
-    line2Text: 'Complete Tutorial',
-    bgColor: '#2C365E',
-    txtColor: '#C5979D',
+    line1Text: 'CONTEXT API CRASH COURSE',
+    lineHeight: '2',
+    bgColor: '#0693E3',
     foreImage:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/640px-React-icon.svg.png',
   },
@@ -54,13 +48,20 @@ export const PLAIN: Template = {
               src={options.foreImage}
               style={{
                 height: '350px',
+                position: 'relative',
+                left: '50px',
               }}
             />
           </div>
 
           <div className="col-span-3">
             <div className="flex flex-col h-full justify-center">
-              <h1 className="z-20 text-6xl p-4">
+              <h1
+                className="z-20 text-8xl p-4"
+                style={{
+                  lineHeight: '100px',
+                }}
+              >
                 {options.line1Text}
               </h1>
             </div>
