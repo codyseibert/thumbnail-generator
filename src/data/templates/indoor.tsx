@@ -25,6 +25,7 @@ export const INDOOR: Template = {
       optionKey: 'txtColor',
       type: 'colorPicker',
     },
+    
   ] as Editable[],
   defaultOptions: {
     line1Text: 'INDOOR',

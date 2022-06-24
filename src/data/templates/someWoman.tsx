@@ -3,7 +3,8 @@ import { Editable } from '@/store/templateStore';
 import '../../../public/pngegg.png';
 import { Template } from '@/api/getTemplates';
 
-export const THINGS_TO_NEVER_WEAR: Template = {
+
+export const THINGS_TO_NEVER_WEAR = {
   name: 'Some Woman',
   description: 'Dont',
   templateImage:
@@ -47,7 +48,7 @@ export const THINGS_TO_NEVER_WEAR: Template = {
     line3Text: 'WEAR',
     bgColor: '#F78DA7',
     txtColor: '#ffffff',
-    foreImage: '',
+    foreImage : '',
   },
   template: (options: any) => {
     return (
@@ -56,40 +57,19 @@ export const THINGS_TO_NEVER_WEAR: Template = {
         style={{
           backgroundColor: options.bgColor,
         }}
-      >
-        <img
-          src="pngegg.png"
-          className="absolute  cross bg-red-400 rounded-full "
-          style={{
-            width: '80px',
-            height: '80px',
-            marginLeft: '200px',
-            marginTop: '-15px',
-          }}
+      > 
+      <div className="img-container relative h-full" style={{ "width" : "55%"}}>
+        <img src={options.foreImage} className="z-30 absolute overflow-hidden " 
+        style={{ "width" : "100%", "height" : "100%" , "top" : "0", "left" : "0"}}
         />
-
-        <div
-          className="img-container relative h-full"
-          style={{ width: '55%' }}
-        >
-          <img
-            src={options.foreImage}
-            className="z-30 absolute overflow-hidden "
-            style={{
-              width: '100%',
-              height: '100%',
-              top: '0',
-              left: '0',
-            }}
-          />
-        </div>
-
+      </div>
         <h1
           className="absolute z-20 bg-white text-black text-5xl p-4"
           style={{
             right: '120px',
             top: '80px',
             transform: 'rotate(-5deg)',
+            
           }}
         >
           {options.line1Text}

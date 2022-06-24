@@ -1,16 +1,7 @@
-import {
-  Editable,
-  useTemplateStore,
-} from '@/store/templateStore';
-import { PaintBucket } from 'phosphor-react';
-import React from 'react';
-import { TwitterPicker } from 'react-color';
-import InputGroup from './InputGroup';
-import { MdGradient } from 'react-icons/md';
-import { ColorPicker } from './Editables/ColorPicker';
-import { Slider } from './Editables/Slider';
-import { Text } from './Editables/Text';
-import { ImagePicker } from './Editables/ImagePicker';
+import { useTemplateStore } from "@/store/templateStore";
+import React from "react";
+import { TwitterPicker } from "react-color";
+import InputGroup from "./InputGroup";
 
 function OptionGroup({
   editable,
@@ -21,47 +12,57 @@ function OptionGroup({
   setOptions: (options: any) => void;
   options: any;
 }) {
+  
   return (
     <>
-      {editable.type === 'slider' && (
-        <Slider
-          editable={editable}
-          options={options}
-          setOptions={setOptions}
+      {editable.type === "text" && (
+        <InputGroup
+          key={editable.key}
+          label={editable.label}
+          onChange={(e: any) => {
+            setOptions({
+              [editable.optionKey]: e.target.value,
+            });
+          }}
+          value={options[editable.optionKey]}
         />
       )}
-
-      {editable.type === 'text' && (
-        <Text
-          editable={editable}
-          options={options}
-          setOptions={setOptions}
-        />
+      {editable.type === "colorPicker" && (
+        <>
+          <h2 className="text-md mb-6">{editable.label}</h2>
+          <TwitterPicker
+            key={editable.key}
+            color={options[editable.optionKey]}
+            onChangeComplete={({ hex }) =>
+              setOptions({
+                [editable.optionKey]: hex,
+              })
+            }
+          />
+        </>
       )}
 
-      {editable.type === 'colorPicker' && (
-        <ColorPicker
-          editable={editable}
-          options={options}
-          setOptions={setOptions}
-        />
-      )}
-
-      {editable.type === 'imagePicker' && (
-        <ImagePicker
-          editable={editable}
-          options={options}
-          setOptions={setOptions}
-        />
+{editable.type === "imagePicker" && (
+        <>
+          <h2>Add Image. Reccomded is 400 x 500 and up.</h2>
+            <input type="file" onChange={(e)=>{
+              setOptions({
+                [editable.optionKey] : URL.createObjectURL(e.target.files[0]),
+                
+              });
+            }} />
+            
+          
+        </>
       )}
     </>
   );
 }
 
 export default function TemplateOptionsPanel() {
+  
   const templateOptions = useTemplateStore();
-  const { editables, options, setOptions } =
-    templateOptions;
+  const { editables, options, setOptions } = templateOptions;
 
   return (
     <div className="p-4 w-96 bg-gray-200 overflow-y-scroll text-gray-600">
@@ -77,6 +78,7 @@ export default function TemplateOptionsPanel() {
           />
         );
       })}
+      
     </div>
   );
 }
