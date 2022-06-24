@@ -18,12 +18,11 @@ export const ColorPicker = ({
   const [endGradient, setEndGradient] = useState('blue');
 
   useEffect(() => {
-    console.log(
-      `linear-gradient(to right, ${startGradient}, ${endGradient})`
-    );
-    setOptions({
-      [editable.optionKey]: `linear-gradient(to right, ${startGradient}, ${endGradient})`,
-    });
+    if (showGradient) {
+      setOptions({
+        [editable.optionKey]: `linear-gradient(to right, ${startGradient}, ${endGradient})`,
+      });
+    }
   }, [endGradient, startGradient]);
 
   return (

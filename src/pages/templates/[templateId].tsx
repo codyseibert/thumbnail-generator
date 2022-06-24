@@ -10,8 +10,6 @@ export default function GeneratePage() {
   const router = useRouter();
   const templateId = router.query.templateId as string;
 
-  console.log('templateId', templateId);
-
   return (
     <div className="">
       <Head>

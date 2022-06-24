@@ -1,56 +1,44 @@
-import { useTemplateStore } from '@/store/templateStore';
+import {
+  Editable,
+  useTemplateStore,
+} from '@/store/templateStore';
 import { PaintBucket } from 'phosphor-react';
 import React from 'react';
 import { TwitterPicker } from 'react-color';
 import InputGroup from './InputGroup';
 import { MdGradient } from 'react-icons/md';
 import { ColorPicker } from './Editables/ColorPicker';
+import { Slider } from './Editables/Slider';
+import { Text } from './Editables/Text';
+import { ImagePicker } from './Editables/ImagePicker';
 
 function OptionGroup({
   editable,
   setOptions,
   options,
 }: {
-  editable: any;
-  setOptions: any;
+  editable: Editable;
+  setOptions: (options: any) => void;
   options: any;
 }) {
   return (
     <>
       {editable.type === 'slider' && (
-        <>
-          <label className="form-label">
-            {editable.label}
-          </label>
-          <input
-            key={editable.key}
-            onChange={(
-              e: React.ChangeEvent<HTMLInputElement>
-            ) => {
-              setOptions({
-                [editable.optionKey]: e.currentTarget.value,
-              });
-            }}
-            value={options[editable.optionKey] + ''}
-            type="range"
-            min="0"
-            max="100"
-            className="range mb-8"
-          />
-        </>
-      )}
-      {editable.type === 'text' && (
-        <InputGroup
-          key={editable.key}
-          label={editable.label}
-          onChange={(value) => {
-            setOptions({
-              [editable.optionKey]: value,
-            });
-          }}
-          value={options[editable.optionKey]}
+        <Slider
+          editable={editable}
+          options={options}
+          setOptions={setOptions}
         />
       )}
+
+      {editable.type === 'text' && (
+        <Text
+          editable={editable}
+          options={options}
+          setOptions={setOptions}
+        />
+      )}
+
       {editable.type === 'colorPicker' && (
         <ColorPicker
           editable={editable}
@@ -60,19 +48,11 @@ function OptionGroup({
       )}
 
       {editable.type === 'imagePicker' && (
-        <div className="mb-8">
-          <h2>Add Image. Reccomded is 400 x 500 and up.</h2>
-          <input
-            type="file"
-            onChange={(e) => {
-              setOptions({
-                [editable.optionKey]: URL.createObjectURL(
-                  e.target.files[0]
-                ),
-              });
-            }}
-          />
-        </div>
+        <ImagePicker
+          editable={editable}
+          options={options}
+          setOptions={setOptions}
+        />
       )}
     </>
   );
