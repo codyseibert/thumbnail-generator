@@ -3,6 +3,13 @@ import { Editable } from '@/store/templateStore';
 import '../../../public/pngegg.png';
 import { Template } from '@/api/getTemplates';
 
+type PlainOptions = {
+  line1Text: string;
+  lineHeight: string;
+  bgColor: string;
+  foreImage: string;
+};
+
 export const PLAIN: Template = {
   name: 'Plan Template',
   description: 'A title and one foreground image',
@@ -33,13 +40,20 @@ export const PLAIN: Template = {
     bgColor: '#0693E3',
     foreImage:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/640px-React-icon.svg.png',
-  },
-  template: (options: any) => {
+  } as PlainOptions,
+  template: (options: PlainOptions) => {
+    const showLinearGradient =
+      options.bgColor.includes('linear');
     return (
       <div
         className="h-full relative overflow-hidden"
         style={{
-          backgroundColor: options.bgColor,
+          backgroundColor: !showLinearGradient
+            ? options.bgColor
+            : undefined,
+          backgroundImage: showLinearGradient
+            ? options.bgColor
+            : undefined,
         }}
       >
         <div className="grid grid-cols-5 h-full">

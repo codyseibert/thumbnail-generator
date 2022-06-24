@@ -1,7 +1,10 @@
 import { useTemplateStore } from '@/store/templateStore';
+import { PaintBucket } from 'phosphor-react';
 import React from 'react';
 import { TwitterPicker } from 'react-color';
 import InputGroup from './InputGroup';
+import { MdGradient } from 'react-icons/md';
+import { ColorPicker } from './Editables/ColorPicker';
 
 function OptionGroup({
   editable,
@@ -49,18 +52,11 @@ function OptionGroup({
         />
       )}
       {editable.type === 'colorPicker' && (
-        <div className="mb-8">
-          <h2 className="text-md mb-6">{editable.label}</h2>
-          <TwitterPicker
-            key={editable.key}
-            color={options[editable.optionKey]}
-            onChangeComplete={({ hex }) =>
-              setOptions({
-                [editable.optionKey]: hex,
-              })
-            }
-          />
-        </div>
+        <ColorPicker
+          editable={editable}
+          options={options}
+          setOptions={setOptions}
+        />
       )}
 
       {editable.type === 'imagePicker' && (
