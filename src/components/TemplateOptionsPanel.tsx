@@ -1,26 +1,18 @@
+import { useTemplateStore } from '@/store/templateStore';
+import React, { FC } from 'react';
 import {
-  Editable,
-  useTemplateStore,
-} from '@/store/templateStore';
-import { PaintBucket } from 'phosphor-react';
-import React from 'react';
-import { TwitterPicker } from 'react-color';
-import InputGroup from './InputGroup';
-import { MdGradient } from 'react-icons/md';
-import { ColorPicker } from './Editables/ColorPicker';
+  ColorPicker,
+  EditableComponentProps,
+} from './Editables/ColorPicker';
 import { Slider } from './Editables/Slider';
 import { Text } from './Editables/Text';
 import { ImagePicker } from './Editables/ImagePicker';
 
-function OptionGroup({
+const OptionGroup: FC<EditableComponentProps> = ({
   editable,
   setOptions,
   options,
-}: {
-  editable: Editable;
-  setOptions: (options: any) => void;
-  options: any;
-}) {
+}) => {
   return (
     <>
       {editable.type === 'slider' && (
@@ -56,7 +48,7 @@ function OptionGroup({
       )}
     </>
   );
-}
+};
 
 export default function TemplateOptionsPanel() {
   const templateOptions = useTemplateStore();
