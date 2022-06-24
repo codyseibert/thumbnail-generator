@@ -1,14 +1,10 @@
-import { Editable } from '@/store/templateStore';
-import React from 'react';
+import React, { FC } from 'react';
+import { EditableComponentProps } from './ColorPicker';
 
-export const Slider = ({
+export const Slider: FC<EditableComponentProps> = ({
   editable,
   setOptions,
   options,
-}: {
-  editable: Editable;
-  setOptions: (options: any) => void;
-  options: any;
 }) => {
   return (
     <>

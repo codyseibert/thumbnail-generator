@@ -1,17 +1,27 @@
 import { Editable } from '@/store/templateStore';
 import { PaintBucket } from 'phosphor-react';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { TwitterPicker } from 'react-color';
 import { MdGradient } from 'react-icons/md';
 
-export const ColorPicker = ({
+export type OptionsMap = {
+  [key: string]: string;
+};
+
+export type SetOptions = {
+  (options: OptionsMap): void;
+};
+
+export type EditableComponentProps = {
+  editable: Editable;
+  setOptions: SetOptions;
+  options: OptionsMap;
+};
+
+export const ColorPicker: FC<EditableComponentProps> = ({
   editable,
   setOptions,
   options,
-}: {
-  editable: Editable;
-  setOptions: (options: any) => void;
-  options: any;
 }) => {
   const [showGradient, setShowGradient] = useState(false);
   const [startGradient, setStartGradient] = useState('red');

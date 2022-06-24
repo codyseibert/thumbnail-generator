@@ -1,15 +1,11 @@
-import { Editable } from '@/store/templateStore';
-import React from 'react';
+import React, { FC } from 'react';
 import InputGroup from '../InputGroup';
+import { EditableComponentProps } from './ColorPicker';
 
-export const Text = ({
+export const Text: FC<EditableComponentProps> = ({
   editable,
   setOptions,
   options,
-}: {
-  editable: Editable;
-  setOptions: (options: any) => void;
-  options: any;
 }) => {
   return (
     <InputGroup
