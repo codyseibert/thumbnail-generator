@@ -33,7 +33,7 @@ export default function TemplatePreview() {
           width: 1024,
           height: 576,
         }}
-        className="mx-auto"
+        
       >
         {template(templateOptions)}
       </div>
