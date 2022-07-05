@@ -36,6 +36,7 @@ export default function TemplatePanel({
     templateStore.setOptions(template.defaultOptions);
     templateStore.setTemplate(template.template);
     templateStore.setEditables(template.editables);
+    
   };
 
   return (

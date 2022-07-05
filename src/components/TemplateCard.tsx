@@ -2,6 +2,7 @@ import React from 'react';
 import { Template } from '@/api/getTemplates';
 import { Lock } from 'phosphor-react';
 import classNames from 'classnames';
+import { useTemplateStore } from '@/store/templateStore';
 
 type TemplateCardProps = {
   template: Template;
@@ -12,6 +13,7 @@ export default function TemplateCard({
   template,
   onSelect,
 }: TemplateCardProps) {
+  const setShowModal = useTemplateStore((state)=>state.showModal)
   return (
     <div className="flex justify-center mt-10">
       <div className="p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all transform duration-500">
@@ -38,7 +40,7 @@ export default function TemplateCard({
               )}
             >
               {template.isPremium && (
-                <Lock className="mr-2" size={32} />
+                <Lock className="mr-2" size={32} onClick={setShowModal(template.isPremium)}/>
               )}
               Use
             </button>

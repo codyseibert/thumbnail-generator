@@ -4,14 +4,17 @@ import React from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { SessionProvider } from 'next-auth/react';
+import { useTemplateStore } from '@/store/templateStore';
+import PremiumPopUp from '@/components/PremiumPopUp';
 
 function MyApp({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
+  const showModal = useTemplateStore((state)=>state.showModal)
   return (
     <>
-      <Head>
+    {showModal && <Head>
         <title>Thumbnail</title>
         <meta
           name="twitter:card"
@@ -38,7 +41,8 @@ function MyApp({
         />
         <link rel="manifest" href="/site.webmanifest?v=2" />
         <link rel="shortcut icon" href="/favicon.ico?v=2" />
-      </Head>
+      </Head>}
+      
       <SessionProvider session={session}>
         <Component {...pageProps} />
       </SessionProvider>
