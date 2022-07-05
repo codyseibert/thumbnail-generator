@@ -23,6 +23,7 @@ interface TemplateStoreState {
 const useStore = create<TemplateStoreState>((set: any, get: any) => ({
   options: {},
   editables: [],
+  showModal : false,
   template: () => null,
   setTemplate: (template: any) => {
     set({template});
@@ -37,7 +38,7 @@ const useStore = create<TemplateStoreState>((set: any, get: any) => ({
     return Object.keys(get().options).length > 0;
   },
   setShowModal : (isPremium : boolean) => {
-    set(isPremium)
+    set((state:any)=>state.showModal = isPremium )
   },
 }));
  
