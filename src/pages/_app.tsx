@@ -14,7 +14,8 @@ function MyApp({
   const showModal = useTemplateStore((state)=>state.showModal)
   return (
     <>
-    {showModal && <Head>
+    {showModal && <PremiumPopUp/>}
+    <Head>
         <title>Thumbnail</title>
         <meta
           name="twitter:card"
@@ -41,8 +42,7 @@ function MyApp({
         />
         <link rel="manifest" href="/site.webmanifest?v=2" />
         <link rel="shortcut icon" href="/favicon.ico?v=2" />
-      </Head>}
-      
+      </Head>
       <SessionProvider session={session}>
         <Component {...pageProps} />
       </SessionProvider>

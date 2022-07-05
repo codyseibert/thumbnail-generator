@@ -13,7 +13,7 @@ export default function TemplateCard({
   template,
   onSelect,
 }: TemplateCardProps) {
-  const setShowModal = useTemplateStore((state)=>state.showModal)
+  const setShowModal = useTemplateStore((state)=>state.setShowModal)
   return (
     <div className="flex justify-center mt-10">
       <div className="p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all transform duration-500">

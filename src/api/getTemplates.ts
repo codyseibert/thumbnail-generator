@@ -1,6 +1,7 @@
 import { TEMPLATES } from '@/data/templates';
 import { Editable } from '@/store/templateStore';
 
+
 export type Template = {
   templateId: string;
   name: string;
