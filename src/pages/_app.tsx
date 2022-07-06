@@ -11,11 +11,13 @@ function MyApp({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
-  const showModal = useTemplateStore((state)=>state.showModal)
+  const showModal = useTemplateStore(
+    (state) => state.showModal
+  );
   return (
     <>
-    {showModal && <PremiumPopUp/>}
-    <Head>
+      {showModal && <PremiumPopUp />}
+      <Head>
         <title>Thumbnail</title>
         <meta
           name="twitter:card"
