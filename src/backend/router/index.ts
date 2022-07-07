@@ -1,9 +1,11 @@
 import * as trpc from '@trpc/server';
 import { z, ZodError } from 'zod';
 import { prisma } from '@/backend/utils/prisma';
+import { checkoutRouter } from './checkout';
+import { RouterContext } from '@/pages/api/trpc/[trpc]';
 
 export const appRouter = trpc
-  .router()
+  .router<RouterContext>()
   .formatError(({ shape, error }) => {
     return {
       ...shape,
@@ -14,7 +16,7 @@ export const appRouter = trpc
           error.cause instanceof ZodError
             ? error.cause.flatten()
             : null,
-      }
+      },
     };
   })
   .mutation('register', {
@@ -33,6 +35,7 @@ export const appRouter = trpc
       });
       return { success: true, user };
     },
-  });
+  })
+  .merge('checkout.', checkoutRouter);
 
 export type AppRouter = typeof appRouter;
