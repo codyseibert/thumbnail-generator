@@ -1,4 +1,3 @@
-import Stripe from 'stripe';
 import { stripe } from '../../../libs/stripe';
 
 const ORIGIN_URL = 'http://localhost:3000';
@@ -8,7 +7,7 @@ export async function createMonthlySubscription({
 }: {
   userId: string;
 }) {
-  const params: Stripe.Checkout.SessionCreateParams = {
+  return await stripe.checkout.sessions.create({
     mode: 'subscription',
     payment_method_types: ['card', 'us_bank_account'],
     line_items: [
@@ -18,9 +17,11 @@ export async function createMonthlySubscription({
         description: 'Access all premium thumbnails',
       },
     ],
+    subscription_data: {
+      metadata: { userId },
+    },
     metadata: { userId },
     success_url: `${ORIGIN_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${ORIGIN_URL}/`,
-  };
-  return await stripe.checkout.sessions.create(params);
+    cancel_url: `${ORIGIN_URL}/pricing`,
+  });
 }

@@ -36,6 +36,19 @@ export const appRouter = trpc
       return { success: true, user };
     },
   })
+  .query('isPremium', {
+    async resolve({ ctx }) {
+      if (!ctx.session) {
+        return false;
+      }
+      const user = await prisma.user.findUnique({
+        where: {
+          id: ctx.session.id as string,
+        },
+      });
+      return user?.isPremium;
+    },
+  })
   .merge('checkout.', checkoutRouter);
 
 export type AppRouter = typeof appRouter;

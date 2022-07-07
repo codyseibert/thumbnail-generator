@@ -46,6 +46,8 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  isPremium     Boolean @default(false)
+  stripePaymentId String?
   accounts      Account[]
   sessions      Session[]
 }

@@ -4,6 +4,7 @@ import { stripe } from '@/libs/stripe';
 import { runMiddleware } from '@/utils/middleware';
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 import bodyParser from 'body-parser';
+import { prisma } from '@/backend/utils/prisma';
 
 export const config = {
   api: {
@@ -32,13 +33,30 @@ const webhook = async (
         signature,
         webhookSecret
       ) as Stripe.Event;
-      if (event.type === 'payment_intent.succeeded') {
+      console.log('event', event);
+
+      if (event.type === 'checkout.session.completed') {
         const userId = event.data.object.metadata.userId;
-        console.log('userId', userId);
-        // TODO: find user by userId, set to isPremium = true
-        // TODO: also store the stripe id?
+        await prisma.user.update({
+          where: {
+            id: userId,
+          },
+          data: {
+            isPremium: true,
+            stripePaymentId: event.data.object.id,
+          },
+        });
+      } else if (event.type === 'invoice.payment_failed') {
+        const userId = event.data.object.metadata.userId;
+        await prisma.user.update({
+          where: {
+            id: userId,
+          },
+          data: {
+            isPremium: false,
+          },
+        });
       }
-      // TODO: if canceled subscription,
       res.send(200);
     } catch (err: unknown) {
       console.log(err);

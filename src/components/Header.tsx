@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import { trpc } from '@/utils/trpc';
 
 export default function Header() {
   const session = useSession();
-  console.log('session', session);
+
+  const { data: isPremium } = trpc.useQuery(['isPremium']);
+
   return (
     <div className="drop-shadow-md px-8 relative bg-white">
       <div className="mx-auto px-4 sm:px-6">
@@ -21,12 +24,13 @@ export default function Header() {
                 Templates
               </a>
             </Link>
-            <a
-              href="#"
-              className="text-base font-medium text-gray-500 hover:text-gray-900"
-            >
-              Pricing
-            </a>
+            {!isPremium && (
+              <Link href="/pricing">
+                <a className="text-base font-medium text-gray-500 hover:text-gray-900">
+                  Pricing
+                </a>
+              </Link>
+            )}
           </nav>
 
           <div className="flex items-center justify-end md:flex-1 lg:w-0 ">
