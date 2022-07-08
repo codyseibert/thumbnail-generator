@@ -13,5 +13,5 @@
 
 ### How to Run
 
-1. Run server `npm run dev`
+1. Run server `npm run dev` 
 2. Run stripe webhook listener `npm run stripe:listen`
