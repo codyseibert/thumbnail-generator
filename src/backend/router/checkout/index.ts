@@ -27,6 +27,7 @@ export const checkoutRouter = trpc
         req: ctx.req,
         res: ctx.res,
       }) as string;
+      console.log('token', token);
 
       if (!ctx.session) {
         throw new Error(
@@ -37,6 +38,8 @@ export const checkoutRouter = trpc
       const dbSession = await prisma.session.findUnique({
         where: { sessionToken: token },
       });
+      console.log('dbSession', dbSession);
+
 
       if (!dbSession) {
         throw new Error(
