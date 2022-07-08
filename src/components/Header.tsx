@@ -34,22 +34,25 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center justify-end md:flex-1 lg:w-0 ">
-            {session.status === 'authenticated' && (
-              <>
-                <img
-                  className="rounded-full w-8 mr-4"
-                  src={session.data.user.image}
-                />
-                <span className="text-gray-500 mr-4">
-                  {session.data.user.name}
-                </span>
-                <Link href="/api/auth/signout">
-                  <a className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
-                    Sign out
-                  </a>
-                </Link>
-              </>
-            )}
+            {session.status === 'authenticated' &&
+              session.data.user && (
+                <>
+                  {session.data.user.image && (
+                    <img
+                      className="rounded-full w-8 mr-4"
+                      src={session.data.user.image}
+                    />
+                  )}
+                  <span className="text-gray-500 mr-4">
+                    {session.data.user.name}
+                  </span>
+                  <Link href="/api/auth/signout">
+                    <a className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+                      Sign out
+                    </a>
+                  </Link>
+                </>
+              )}
 
             {session.status === 'unauthenticated' && (
               <>

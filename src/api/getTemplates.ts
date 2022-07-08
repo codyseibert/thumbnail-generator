@@ -10,8 +10,7 @@ export type Template = {
   template: any;
   editables: Editable[];
   isPremium: boolean;
-  
-  defaultOptions: { [key: string]: string };
+  defaultOptions: { [key: string]: any };
 };
 
 export const getTemplates = async () => {

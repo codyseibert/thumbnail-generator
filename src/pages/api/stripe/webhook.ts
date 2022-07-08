@@ -33,21 +33,22 @@ const webhook = async (
         signature,
         webhookSecret
       ) as Stripe.Event;
-      console.log('event', event);
+
+      const eventData = event.data as any;
 
       if (event.type === 'checkout.session.completed') {
-        const userId = event.data.object.metadata.userId;
+        const userId = eventData.object.metadata.userId;
         await prisma.user.update({
           where: {
             id: userId,
           },
           data: {
             isPremium: true,
-            stripePaymentId: event.data.object.id,
+            stripePaymentId: eventData.object?.id,
           },
         });
       } else if (event.type === 'invoice.payment_failed') {
-        const userId = event.data.object.metadata.userId;
+        const userId = eventData.object.metadata.userId;
         await prisma.user.update({
           where: {
             id: userId,

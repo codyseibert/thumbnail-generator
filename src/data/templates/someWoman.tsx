@@ -9,6 +9,7 @@ export const THINGS_TO_NEVER_WEAR: Template = {
   templateImage:
     'https://i.easil.com/wp-content/uploads/20210901115812/Stacked-Angled-Heading-Pink-Black-youtube-thumbnail.jpg',
   templateId: '1',
+  isPremium: false,
   editables: [
     {
       label: 'Line 1 Text',

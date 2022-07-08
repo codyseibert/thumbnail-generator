@@ -4,7 +4,6 @@ import { EditableComponentProps } from './ColorPicker';
 export const ImagePicker: FC<EditableComponentProps> = ({
   editable,
   setOptions,
-  options,
 }) => {
   return (
     <div className="mb-8">
@@ -12,6 +11,7 @@ export const ImagePicker: FC<EditableComponentProps> = ({
       <input
         type="file"
         onChange={(e) => {
+          if (!e.target.files) return;
           setOptions({
             [editable.optionKey]: URL.createObjectURL(
               e.target.files[0]
