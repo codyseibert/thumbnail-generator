@@ -27,16 +27,23 @@ export const checkoutRouter = trpc
         req: ctx.req,
         res: ctx.res,
       }) as string;
-      const dbSession = await prisma.session.findUnique({
-        where: { sessionToken: token },
-      });
-      console.log('dbSession', dbSession);
-      console.log('session', ctx.session);
+
       if (!ctx.session) {
         throw new Error(
           'you must be logged in to subscribe'
         );
       }
+
+      const dbSession = await prisma.session.findUnique({
+        where: { sessionToken: token },
+      });
+
+      if (!dbSession) {
+        throw new Error(
+          'no user exists with this sessionToken'
+        );
+      }
+
       return await createMonthlySubscription({
         userId: dbSession.userId,
       });
