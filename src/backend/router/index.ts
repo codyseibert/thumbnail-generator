@@ -19,23 +19,6 @@ export const appRouter = trpc
       },
     };
   })
-  .mutation('register', {
-    input: z.object({
-      email: z.string().email(),
-      password: z.string().min(8).max(32),
-    }),
-    async resolve({ input }) {
-      // TODO: validate the email and password
-      // TODO: hash + salt the password
-      const user = await prisma.user.create({
-        data: {
-          email: input.email,
-          password: input.password,
-        },
-      });
-      return { success: true, user };
-    },
-  })
   .query('isPremium', {
     async resolve({ ctx }) {
       if (!ctx.session) {
