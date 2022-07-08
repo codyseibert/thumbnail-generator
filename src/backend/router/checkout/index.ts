@@ -23,7 +23,10 @@ export const checkoutRouter = trpc
   .mutation('createMonthlySubscription', {
     // input: z.object({}),
     async resolve({ ctx }) {
-      const token = getCookie('next-auth.session-token', {
+      const token = getCookie('__Secure-next-auth.session-token', {
+        req: ctx.req,
+        res: ctx.res,
+      }) || getCookie('next-auth.session-token', {
         req: ctx.req,
         res: ctx.res,
       }) as string;
