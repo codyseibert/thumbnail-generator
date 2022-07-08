@@ -1,6 +1,6 @@
 import { stripe } from '../../../libs/stripe';
 
-const ORIGIN_URL = 'http://localhost:3000';
+const ORIGIN_URL = process.env.ORIGIN_URL ?? 'http://localhost:3000';
 
 export async function createMonthlySubscription({
   userId,
