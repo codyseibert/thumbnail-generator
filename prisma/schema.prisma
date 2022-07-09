@@ -41,15 +41,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  isPremium     Boolean @default(false)
+  id              String     @id @default(cuid())
+  name            String?
+  email           String?    @unique
+  emailVerified   DateTime?
+  image           String?
+  isPremium       Boolean    @default(false)
   stripePaymentId String?
-  accounts      Account[]
-  sessions      Session[]
+  accounts        Account[]
+  sessions        Session[]
+  Bookmark        Bookmark[]
 }
 
 model VerificationToken {
@@ -58,4 +59,12 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Bookmark {
+  id         String @id @default(cuid())
+  userId     String
+  templateId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

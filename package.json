@@ -6,8 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "prisma:studio": "prisma studio",
     "postinstall": "prisma generate",
-    "stripe:listen": "stripe listen --forward-to localhost:30/api/stripe/webhook",
+    "stripe:listen": "stripe listen --forward-to localhost:3000/api/stripe/webhook",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
   },
   "dependencies": {

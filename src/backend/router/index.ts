@@ -1,8 +1,9 @@
 import * as trpc from '@trpc/server';
-import { z, ZodError } from 'zod';
+import { ZodError } from 'zod';
 import { prisma } from '@/backend/utils/prisma';
 import { checkoutRouter } from './checkout';
 import { RouterContext } from '@/pages/api/trpc/[trpc]';
+import { bookmarkRouter } from './bookmark';
 
 export const appRouter = trpc
   .router<RouterContext>()
@@ -32,6 +33,7 @@ export const appRouter = trpc
       return user?.isPremium;
     },
   })
+  .merge('bookmark.', bookmarkRouter)
   .merge('checkout.', checkoutRouter);
 
 export type AppRouter = typeof appRouter;
