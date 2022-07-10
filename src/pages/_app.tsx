@@ -14,8 +14,10 @@ function MyApp({
   const showModal = useTemplateStore(
     (state) => state.showModal
   );
+console.log(showModal)
   return (
-    <>
+    <>  
+      
       {showModal && <PremiumPopUp />}
       <Head>
         <title>Thumbnail</title>
