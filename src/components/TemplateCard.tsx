@@ -15,10 +15,10 @@ export default function TemplateCard({
   onSelect,
 }: TemplateCardProps) {
   const showModal = useTemplateStore(
-    (state) => state.showModal
+    (state) => state.showPremiumModal
   )
-  const setShowModal = useTemplateStore(
-    (state) => state.setShowModal
+  const  setShowPremiumModal= useTemplateStore(
+    (state) => state. setShowPremiumModal
   );
 
   return (
@@ -40,7 +40,7 @@ export default function TemplateCard({
             <button
               onClick={() => {
                 template.isPremium
-                  ? setShowModal(true)
+                  ?  setShowPremiumModal(true)
                   : onSelect(template)
               }}
               className={classNames(
@@ -51,7 +51,7 @@ export default function TemplateCard({
               )}
             >
               {template.isPremium && (
-                <Lock className="mr-2" size={32} onClick={()=>setShowModal(true)} />
+                <Lock className="mr-2" size={32} onClick={()=> setShowPremiumModal(true)} />
               )}
               Use
             </button>

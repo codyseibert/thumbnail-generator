@@ -1,4 +1,4 @@
-import { boolean } from 'zod';
+
 import create from 'zustand';
 
 export type Editable = {
@@ -15,15 +15,15 @@ interface TemplateStoreState {
   setOptions: (options: any) => void;
   setEditables: (editables: Editable[]) => void;
   isSelected: () => boolean;
-  showModal: boolean;
-  setShowModal: (isEnabled: boolean) => void;
+  showPremiumModal: boolean;
+  setShowPremiumModal: (isEnabled: boolean) => void;
 }
 
 const useStore = create<TemplateStoreState>(
   (set: any, get: any) => ({
     options: {},
     editables: [],
-    showModal: false,
+    showPremiumModal: false,
     template: () => null,
     setTemplate: (template: any) => {
       set({ template });
@@ -39,8 +39,8 @@ const useStore = create<TemplateStoreState>(
     isSelected: () => {
       return Object.keys(get().options).length > 0;
     },
-    setShowModal: (isPremium: boolean) => {
-      set({ showModal: isPremium });
+    setShowPremiumModal: (isPremium: boolean) => {
+      set({ showPremiumModal: isPremium });
     },
   })
 );

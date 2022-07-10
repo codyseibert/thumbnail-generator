@@ -11,14 +11,14 @@ function MyApp({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
-  const showModal = useTemplateStore(
-    (state) => state.showModal
+  const showPremiumModal = useTemplateStore(
+    (state) => state.showPremiumModal
   );
-console.log(showModal)
+console.log(showPremiumModal)
   return (
     <>  
       
-      {showModal && <PremiumPopUp />}
+      {showPremiumModal && <PremiumPopUp />}
       <Head>
         <title>Thumbnail</title>
         <meta
