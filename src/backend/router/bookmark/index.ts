@@ -13,7 +13,7 @@ export const bookmarkRouter = trpc
         );
       }
       // TODO: fix typescript hack add type to id
-      const userId = ctx.session.id as string;
+      const userId = ctx.session.user.id;
       const bookmarks = await prisma.bookmark.findMany({
         where: {
           userId,
@@ -38,7 +38,7 @@ export const bookmarkRouter = trpc
           id: input.bookmarkId,
         }
       })
-      
+
       return bookmark;
     },
   })
@@ -53,8 +53,7 @@ export const bookmarkRouter = trpc
         );
       }
 
-      // TODO: fix typescript hack add type to id
-      const userId = ctx.session.id as string;
+      const userId = ctx.session.user.id;
 
       const bookmark = await prisma.bookmark.create({
         data: {
@@ -62,7 +61,7 @@ export const bookmarkRouter = trpc
           templateId: input.templateId,
         }
       })
-      
+
       return bookmark;
     },
   });

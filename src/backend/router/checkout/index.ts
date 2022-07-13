@@ -27,7 +27,7 @@ export const checkoutRouter = trpc
         );
       }
 
-      const userId = ctx.session.id as string;
+      const userId = ctx.session.user.id;
       return await createMonthlySubscription({
         userId,
       });

@@ -1,5 +1,6 @@
 import { appRouter, AppRouter } from '@/backend/router';
 import { inferProcedureOutput } from '@trpc/server';
+import { prisma } from '@/backend/utils/prisma';
 import * as trpcNext from '@trpc/server/adapters/next';
 import { unstable_getServerSession as getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
@@ -20,6 +21,7 @@ export const createContext = async (
     req,
     res,
     session,
+    prisma
   };
 };
 
@@ -34,6 +36,6 @@ export type RouterContext = trpc.inferAsyncReturnType<
 
 export type inferQueryResponse<
   TRouteKey extends keyof AppRouter['_def']['queries']
-> = inferProcedureOutput<
-  AppRouter['_def']['queries'][TRouteKey]
->;
+  > = inferProcedureOutput<
+    AppRouter['_def']['queries'][TRouteKey]
+  >;
