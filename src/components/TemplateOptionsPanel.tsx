@@ -56,7 +56,7 @@ export default function TemplateOptionsPanel() {
     templateOptions;
 
   return (
-    <div className="p-4 w-96 bg-gray-200 overflow-y-scroll text-gray-600">
+    <div className="p-4 w-96 bg-gray-200 overflow-y-scroll text-gray-600 pb-44">
       <h1 className="text-2xl mb-4">OPTIONS</h1>
 
       {editables.map((item) => {
