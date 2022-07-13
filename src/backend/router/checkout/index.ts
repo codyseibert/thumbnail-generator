@@ -20,6 +20,7 @@ export const checkoutRouter = trpc
   })
   .mutation('createMonthlySubscription', {
     async resolve({ ctx }) {
+      console.log('we are here');
       if (!ctx.session) {
         throw new Error(
           'you must be logged in to subscribe'
