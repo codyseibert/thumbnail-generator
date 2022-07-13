@@ -8,6 +8,7 @@
     "start": "next start",
     "prisma:studio": "prisma studio",
     "postinstall": "prisma generate",
+    "migrate": "prisma migrate dev",
     "db": "docker run --name thumbnail-mysql -p 3306:3306 -e MYSQL_DATABASE=thumbnail_generator -e MYSQL_ROOT_PASSWORD=password -d mysql:latest",
     "stripe:listen": "stripe listen --forward-to localhost:3000/api/stripe/webhook",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
@@ -22,6 +23,7 @@
     "@trpc/server": "^9.25.3",
     "@types/body-parser": "^1.19.2",
     "@types/stripe": "^8.0.417",
+    "aws-sdk": "^2.1173.0",
     "body-parser": "^1.20.0",
     "classnames": "^2.3.1",
     "cookies-next": "^2.1.1",
@@ -41,6 +43,7 @@
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
+    "@aws-sdk/types": "^3.127.0",
     "@types/downloadjs": "^1.4.3",
     "@types/react": "18.0.14",
     "@types/react-color": "^3.0.6",

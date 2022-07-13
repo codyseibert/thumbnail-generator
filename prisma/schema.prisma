@@ -50,6 +50,7 @@ model User {
   accounts        Account[]
   sessions        Session[]
   Bookmark        Bookmark[]
+  Image           Image[]
 }
 
 model VerificationToken {
@@ -64,6 +65,13 @@ model Bookmark {
   id         String @id @default(cuid())
   userId     String
   templateId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Image {
+  id     String @id @default(cuid())
+  userId String
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

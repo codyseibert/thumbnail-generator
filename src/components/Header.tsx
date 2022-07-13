@@ -25,15 +25,20 @@ export default function Header() {
                 Templates
               </a>
             </Link>
-            {!isPremium && (
-              <>
-
-              <Link href="/pricing">
+            {isPremium && (
+              <Link href="/images">
                 <a className="text-base font-medium text-gray-500 hover:text-gray-900">
-                  Pricing
+                  Images
                 </a>
               </Link>
-              
+            )}
+            {!isPremium && (
+              <>
+                <Link href="/pricing">
+                  <a className="text-base font-medium text-gray-500 hover:text-gray-900">
+                    Pricing
+                  </a>
+                </Link>
               </>
             )}
           </nav>
@@ -56,9 +61,9 @@ export default function Header() {
                       Sign out
                     </a>
                   </Link>
-                  
 
-                  
+
+
                 </>
               )}
 
@@ -77,7 +82,7 @@ export default function Header() {
               </>
             )}
 
-            
+
           </div>
         </div>
       </div>

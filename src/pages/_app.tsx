@@ -14,10 +14,9 @@ function MyApp({
   const showPremiumModal = useTemplateStore(
     (state) => state.showPremiumModal
   );
-console.log(showPremiumModal)
+
   return (
-    <>  
-      
+    <>
       {showPremiumModal && <PremiumPopUp />}
       <Head>
         <title>Thumbnail</title>

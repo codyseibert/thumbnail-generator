@@ -4,6 +4,7 @@
 
 1. install mysql locally on your machine (or use a docker image)
 2. ask for the .env file secrets
+3. in order to emulate stripe webhooks, you'll need the stripe CLI is installed: https://stripe.com/docs/stripe-cli#install
 
 ### First Time Setup
 
