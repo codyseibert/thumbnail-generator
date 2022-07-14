@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Header from '@/components/Header';
 import { trpc } from '@/utils/trpc';
-import { DANGER_BUTTON } from '@/classes/buttons';
+import { DANGER_BUTTON, PRIMARY_BUTTON } from '@/classes/buttons';
 
-const ImageCard = ({ url, id }: { url: string, id: string }) => {
-  return <div className="flex justify-center mt-10">
-    <div className="p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all transform duration-500">
+const ImageCard = (
+  { url, id, refetchImages }: { url: string, id: string, refetchImages: any }
+) => {
+
+  const { mutateAsync: deleteImage } =
+    trpc.useMutation('image.delete');
+
+  return <div className="w-full flex-1 flex justify-center mt-10">
+    <div className="w-full p-6 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all transform duration-500">
       <img
-        className="w-64 object-cover"
+        className="w-full h-32 object-cover"
         src={url}
         alt=""
       />
       <div className="flex mt-2 justify-end">
-        <button className={DANGER_BUTTON}>Remove</button>
+        <button
+          onClick={async () => {
+            await deleteImage({ imageId: id, })
+            refetchImages();
+          }}
+          className={DANGER_BUTTON}>Remove</button>
       </div>
     </div>
   </div>
@@ -20,6 +31,7 @@ const ImageCard = ({ url, id }: { url: string, id: string }) => {
 
 export default function ImagesPage() {
   const [file, setFile] = useState<any>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   const { mutateAsync: createPresignedUrl } =
     trpc.useMutation('image.createPresignedUrl');
@@ -50,23 +62,27 @@ export default function ImagesPage() {
       body: formData,
     });
     refetchImages();
+    setFile(null);
+    if (fileRef.current) {
+      fileRef.current.value = '';
+    }
   }
 
   return (
     <div>
       <Header />
-      <div className="container text-center pt-64 pb-64 mx-auto h-full">
-        <h1 className="text-4xl mb-4">Images</h1>
+      <div className="container text-center pt-12 pb-64 mx-auto h-full">
+        <h1 className="text-4xl mb-4">Manage Images</h1>
 
-        <form onSubmit={uploadImage}>
-          Upload New Image
-          <input onChange={onFileChange} type="file"></input>
-          <button type="submit">Upload</button>
+        <form className="text-white" onSubmit={uploadImage}>
+          Upload Image
+          <input ref={fileRef} className="ml-4 text-white" onChange={onFileChange} type="file"></input>
+          {file && <button className={PRIMARY_BUTTON} type="submit">Upload</button>}
         </form>
 
-        <div className="grid grid-cols-4">
+        <div className="grid grid-cols-5 gap-8">
           {images && images.map(image => (
-            <ImageCard key={image.id} {...image} />
+            <ImageCard refetchImages={refetchImages} key={image.id} {...image} />
           ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import * as trpc from '@trpc/server';
-import { createMonthlySubscription } from './createCheckout';
-import getSessionById from './getSessionById';
+import { createMonthlySubscription } from './checkout/createCheckout';
+import getSessionById from './checkout/getSessionById';
 import { z } from 'zod';
 import { RouterContext } from '@/pages/api/trpc/[trpc]';
 

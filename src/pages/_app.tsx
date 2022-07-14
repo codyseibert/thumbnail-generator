@@ -55,7 +55,7 @@ function MyApp({
 }
 
 import { withTRPC } from '@trpc/next';
-import type { AppRouter } from '@/backend/router';
+import type { AppRouter } from '@/backend/router/router';
 import Footer from '@/components/Footer';
 
 function getBaseUrl() {

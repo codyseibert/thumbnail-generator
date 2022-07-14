@@ -1,4 +1,4 @@
-import { appRouter, AppRouter } from '@/backend/router';
+import { appRouter, AppRouter } from '@/backend/router/router';
 import { inferProcedureOutput } from '@trpc/server';
 import { prisma } from '@/backend/utils/prisma';
 import * as trpcNext from '@trpc/server/adapters/next';

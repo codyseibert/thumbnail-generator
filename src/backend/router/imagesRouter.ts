@@ -4,6 +4,8 @@ import { prisma } from '@/backend/utils/prisma';
 import * as AWS from 'aws-sdk';
 import { Image } from '@prisma/client';
 const s3 = new AWS.S3()
+import { z } from 'zod';
+import { imageConfigDefault } from 'next/dist/shared/lib/image-config';
 
 interface ImageMetadata extends Image {
   url: string
@@ -36,6 +38,34 @@ export const imagesRouter = trpc
       }))
 
       return extendedImages;
+    }
+  })
+  .mutation('delete', {
+    input: z.object({
+      imageId: z.string()
+    }),
+    async resolve({ ctx, input }) {
+      if (!ctx.session) {
+        throw new Error('you must be logged in');
+      }
+
+      const userId = ctx.session.user.id;
+
+      const image = await prisma.image.findFirst({
+        where: {
+          id: input.imageId
+        }
+      })
+
+      if (!image || image.userId !== userId) {
+        throw new Error('invalid access');
+      }
+
+      await prisma.image.delete({
+        where: {
+          id: input.imageId
+        }
+      })
     }
   })
   .mutation('createPresignedUrl', {
