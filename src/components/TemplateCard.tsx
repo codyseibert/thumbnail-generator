@@ -26,6 +26,8 @@ export default function TemplateCard({
     'bookmark.getBookmarks',
   ]);
 
+  const { data: isPremium } = trpc.useQuery(['isPremium'])
+
   const { mutateAsync: bookmarkTemplate } =
     trpc.useMutation('bookmark.bookmarkTemplate', {
       onSuccess() {
@@ -96,7 +98,7 @@ export default function TemplateCard({
             </button>
             <button
               onClick={() => {
-                template.isPremium
+                (template.isPremium && !isPremium)
                   ? setShowPremiumModal(true)
                   : onSelect(template)
               }}
@@ -107,7 +109,7 @@ export default function TemplateCard({
                 }
               )}
             >
-              {template.isPremium && (
+              {template.isPremium && !isPremium && (
                 <Lock className="mr-2" size={32} />
               )}
               Use

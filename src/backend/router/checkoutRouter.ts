@@ -3,6 +3,7 @@ import { createMonthlySubscription } from './checkout/createCheckout';
 import getSessionById from './checkout/getSessionById';
 import { z } from 'zod';
 import { RouterContext } from '@/pages/api/trpc/[trpc]';
+import { isLoggedInMiddleware } from './utils/isLoggedInMiddleware';
 
 export const checkoutRouter = trpc
   .router<RouterContext>()
@@ -18,18 +19,12 @@ export const checkoutRouter = trpc
       return await getSessionById(input.session_id);
     },
   })
+  .middleware(isLoggedInMiddleware)
   .mutation('createMonthlySubscription', {
     async resolve({ ctx }) {
       console.log('we are here');
-      if (!ctx.session) {
-        throw new Error(
-          'you must be logged in to subscribe'
-        );
-      }
-
-      const userId = ctx.session.user.id;
       return await createMonthlySubscription({
-        userId,
+        userId: ctx.userId,
       });
     },
   });

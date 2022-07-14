@@ -3,14 +3,3 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply text-gray-100 bg-gray-800;
-}
-
-input {
-  @apply text-gray-800;
-}
-
-h1 {
-  @apply text-3xl font-bold;
-}

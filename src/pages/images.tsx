@@ -20,7 +20,7 @@ const ImageCard = (
       <div className="flex mt-2 justify-end">
         <button
           onClick={async () => {
-            await deleteImage({ imageId: id, })
+            await deleteImage({ imageId: id })
             refetchImages();
           }}
           className={DANGER_BUTTON}>Remove</button>

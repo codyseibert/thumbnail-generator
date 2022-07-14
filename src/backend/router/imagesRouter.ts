@@ -5,7 +5,11 @@ import * as AWS from 'aws-sdk';
 import { Image } from '@prisma/client';
 const s3 = new AWS.S3()
 import { z } from 'zod';
-import { imageConfigDefault } from 'next/dist/shared/lib/image-config';
+import { isLoggedInMiddleware } from './utils/isLoggedInMiddleware';
+
+const BUCKET_NAME = process.env.IMAGE_STORAGE_S3_BUCKET ?? 'thumbnail-generator-images';
+const UPLOADING_TIME_LIMIT = 30;
+const UPLOAD_MAX_FILE_SIZE = 1000000;
 
 interface ImageMetadata extends Image {
   url: string
@@ -13,43 +17,37 @@ interface ImageMetadata extends Image {
 
 export const imagesRouter = trpc
   .router<RouterContext>()
+  .middleware(isLoggedInMiddleware)
   .query('getImagesForUser', {
     async resolve({ ctx }) {
-      if (!ctx.session) {
-        throw new Error('you must be logged in');
-      }
-
-      const userId = ctx.session.user.id;
+      const userId = ctx.userId;
 
       const images = await ctx.prisma.image.findMany({
         where: {
-          userId: ctx.session.user.id,
+          userId,
         }
       })
 
-      const extendedImages: ImageMetadata[] = await Promise.all(images.map(async image => {
-        return {
-          ...image,
-          url: await s3.getSignedUrlPromise('getObject', {
-            Bucket: 'thumbnail-generator-images',
-            Key: `${userId}/${image.id}`
-          })
-        }
-      }))
+      const extendedImages: ImageMetadata[] = await Promise.all(
+        images.map(async image => {
+          return {
+            ...image,
+            url: await s3.getSignedUrlPromise('getObject', {
+              Bucket: BUCKET_NAME,
+              Key: `${userId}/${image.id}`
+            })
+          }
+        }))
 
       return extendedImages;
     }
   })
   .mutation('delete', {
     input: z.object({
-      imageId: z.string()
+      imageId: z.string(),
     }),
     async resolve({ ctx, input }) {
-      if (!ctx.session) {
-        throw new Error('you must be logged in');
-      }
-
-      const userId = ctx.session.user.id;
+      const userId = ctx.userId;
 
       const image = await prisma.image.findFirst({
         where: {
@@ -66,21 +64,25 @@ export const imagesRouter = trpc
           id: input.imageId
         }
       })
+
+      await s3.deleteObject(
+        {
+          Bucket: BUCKET_NAME,
+          Key: `${userId}/${input.imageId}`
+        }
+      ).promise()
     }
   })
   .mutation('createPresignedUrl', {
     async resolve({ ctx }) {
-      if (!ctx.session) {
-        throw new Error('you must be logged in');
-      }
-
-      const userId = ctx.session.user.id;
+      const userId = ctx.userId;
 
       const image = await prisma.image.create({
         data: {
           userId,
         }
       })
+
 
       return new Promise((resolve, reject) => {
         s3.createPresignedPost({
@@ -89,10 +91,10 @@ export const imagesRouter = trpc
           },
           Conditions: [
             ["starts-with", "$Content-Type", "image/"],
-            ["content-length-range", 0, 1000000],
+            ["content-length-range", 0, UPLOAD_MAX_FILE_SIZE],
           ],
-          Expires: 30,
-          Bucket: 'thumbnail-generator-images',
+          Expires: UPLOADING_TIME_LIMIT,
+          Bucket: BUCKET_NAME,
         }, (err, signed) => {
           if (err) return reject(err);
           resolve(signed);
