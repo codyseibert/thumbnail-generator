@@ -16,12 +16,15 @@ const webhook = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
+  console.log('runMiddleware')
+
   await runMiddleware(
     req,
     res,
     bodyParser.raw({ type: 'application/json' })
   );
 
+  console.log(req.method)
   if (req.method === 'POST') {
     const signature = req.headers[
       'stripe-signature'
