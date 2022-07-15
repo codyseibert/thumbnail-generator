@@ -1,10 +1,8 @@
 import { NextApiResponse, NextApiRequest } from 'next';
-import { Stripe } from 'stripe';
 import { stripe } from '@/libs/stripe';
-import { runMiddleware } from '@/utils/middleware';
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
-import bodyParser from 'body-parser';
 import { prisma } from '@/backend/utils/prisma';
+import { buffer } from "micro";
 
 export const config = {
   api: {
@@ -18,14 +16,15 @@ const webhook = async (
 ) => {
   console.log('runMiddleware')
 
-  await runMiddleware(
-    req,
-    res,
-    bodyParser.raw({ type: 'application/json' })
-  );
+  // await runMiddleware(
+  //   req,
+  //   res,
+  //   bodyParser.raw({ type: 'application/json' })
+  // );
 
   console.log(req.method)
   if (req.method === 'POST') {
+    const buf = await buffer(req);
     const signature = req.headers[
       'stripe-signature'
     ] as string;
@@ -34,17 +33,17 @@ const webhook = async (
       console.log('signature', signature)
       console.log('constructEvent')
       const event = stripe.webhooks.constructEvent(
-        req.body,
+        buf,
         signature,
         webhookSecret
-      ) as Stripe.Event;
+      ) as any;
 
       const eventData = event.data as any;
       console.log('event.type', event.type)
 
+      const userId = eventData.object.metadata.userId;
 
       if (event.type === 'checkout.session.completed') {
-        const userId = eventData.object.metadata.userId;
         await prisma.user.update({
           where: {
             id: userId,
@@ -55,7 +54,6 @@ const webhook = async (
           },
         });
       } else if (event.type === 'invoice.payment_failed') {
-        const userId = eventData.object.metadata.userId;
         await prisma.user.update({
           where: {
             id: userId,
@@ -65,19 +63,16 @@ const webhook = async (
           },
         });
       }
-    } catch (err: unknown) {
-      console.log(err);
-      if (err instanceof SyntaxError) {
-        console.log(`Error message: ${err.message}`);
-        res
-          .status(400)
-          .send(`Webhook Error: ${err.message}`);
-        return;
-      }
+    } catch (err: any) {
+      res.status(400).send(`Webhook Error: ${err.message}`);
+      return;
     }
-  }
 
-  res.status(200).send("[200] Webhook received.");
+    res.json({ received: true });
+  } else {
+    res.setHeader("Allow", "POST");
+    res.status(405).end("Method Not Allowed");
+  }
 };
 
 export default webhook;
