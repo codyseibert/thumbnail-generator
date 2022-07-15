@@ -28,6 +28,8 @@ const webhook = async (
     ] as string;
 
     try {
+      console.log('signature', signature)
+      console.log('constructEvent')
       const event = stripe.webhooks.constructEvent(
         req.body,
         signature,
@@ -35,6 +37,8 @@ const webhook = async (
       ) as Stripe.Event;
 
       const eventData = event.data as any;
+      console.log('event.type', event.type)
+
 
       if (event.type === 'checkout.session.completed') {
         const userId = eventData.object.metadata.userId;
