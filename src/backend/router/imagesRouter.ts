@@ -1,11 +1,13 @@
 import * as trpc from '@trpc/server';
+import { Image } from '@prisma/client';
+import { z } from 'zod';
+
 import { RouterContext } from '@/pages/api/trpc/[trpc]';
 import { prisma } from '@/backend/utils/prisma';
-import * as AWS from 'aws-sdk';
-import { Image } from '@prisma/client';
+import { isLoggedInMiddleware } from '@/backend/router/utils/isLoggedInMiddleware';
+import { AWS } from '@/libs/aws'
+
 const s3 = new AWS.S3()
-import { z } from 'zod';
-import { isLoggedInMiddleware } from './utils/isLoggedInMiddleware';
 
 const BUCKET_NAME = process.env.IMAGE_STORAGE_S3_BUCKET ?? 'thumbnail-generator-images';
 const UPLOADING_TIME_LIMIT = 30;
