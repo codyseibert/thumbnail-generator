@@ -11,7 +11,7 @@ export const bookmarkRouter = trpc
     async resolve({ ctx }) {
       const bookmarks = await prisma.bookmark.findMany({
         where: {
-          userId: ctx.userId,
+          userId: ctx.session.user.id,
         }
       })
       return bookmarks;
@@ -21,7 +21,7 @@ export const bookmarkRouter = trpc
     input: z.object({
       bookmarkId: z.string()
     }),
-    async resolve({ ctx, input }) {
+    async resolve({ input }) {
       const bookmark = await prisma.bookmark.delete({
         where: {
           id: input.bookmarkId,
@@ -38,7 +38,7 @@ export const bookmarkRouter = trpc
     async resolve({ ctx, input }) {
       const bookmark = await prisma.bookmark.create({
         data: {
-          userId: ctx.userId,
+          userId: ctx.session.user.id,
           templateId: input.templateId,
         }
       })

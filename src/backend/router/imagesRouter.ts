@@ -20,7 +20,7 @@ export const imagesRouter = trpc
   .middleware(isLoggedInMiddleware)
   .query('getImagesForUser', {
     async resolve({ ctx }) {
-      const userId = ctx.userId;
+      const userId = ctx.session.user.id;
 
       const images = await ctx.prisma.image.findMany({
         where: {
@@ -47,7 +47,7 @@ export const imagesRouter = trpc
       imageId: z.string(),
     }),
     async resolve({ ctx, input }) {
-      const userId = ctx.userId;
+      const userId = ctx.session.user.id;
 
       const image = await prisma.image.findFirst({
         where: {
@@ -75,7 +75,7 @@ export const imagesRouter = trpc
   })
   .mutation('createPresignedUrl', {
     async resolve({ ctx }) {
-      const userId = ctx.userId;
+      const userId = ctx.session.user.id;
 
       const image = await prisma.image.create({
         data: {

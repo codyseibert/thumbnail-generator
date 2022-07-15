@@ -22,9 +22,8 @@ export const checkoutRouter = trpc
   .middleware(isLoggedInMiddleware)
   .mutation('createMonthlySubscription', {
     async resolve({ ctx }) {
-      console.log('we are here');
       return await createMonthlySubscription({
-        userId: ctx.userId,
+        userId: ctx.session.user.id
       });
     },
   });
