@@ -14,15 +14,6 @@ const webhook = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  console.log('runMiddleware')
-
-  // await runMiddleware(
-  //   req,
-  //   res,
-  //   bodyParser.raw({ type: 'application/json' })
-  // );
-
-  console.log(req.method)
   if (req.method === 'POST') {
     const buf = await buffer(req);
     const signature = req.headers[
@@ -30,8 +21,6 @@ const webhook = async (
     ] as string;
 
     try {
-      console.log('signature', signature)
-      console.log('constructEvent')
       const event = stripe.webhooks.constructEvent(
         buf,
         signature,
@@ -39,7 +28,6 @@ const webhook = async (
       ) as any;
 
       const eventData = event.data as any;
-      console.log('event.type', event.type)
 
       const userId = eventData.object.metadata.userId;
 
