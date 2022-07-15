@@ -15,7 +15,7 @@ export const config = {
 const webhook = async (
   req: NextApiRequest,
   res: NextApiResponse
-): Promise<void> => {
+) => {
   console.log('runMiddleware')
 
   await runMiddleware(
@@ -65,7 +65,6 @@ const webhook = async (
           },
         });
       }
-      res.send(200);
     } catch (err: unknown) {
       console.log(err);
       if (err instanceof SyntaxError) {
@@ -77,6 +76,8 @@ const webhook = async (
       }
     }
   }
+
+  res.status(200).send("[200] Webhook received.");
 };
 
 export default webhook;
