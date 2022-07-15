@@ -1,8 +1,8 @@
 import { NextApiResponse, NextApiRequest } from 'next';
 import { stripe } from '@/libs/stripe';
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 import { prisma } from '@/backend/utils/prisma';
 import { buffer } from "micro";
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export const config = {
   api: {
@@ -24,7 +24,6 @@ const webhook = async (
 
   console.log(req.method)
   if (req.method === 'POST') {
-    const buf = await buffer(req);
     const signature = req.headers[
       'stripe-signature'
     ] as string;
@@ -33,7 +32,7 @@ const webhook = async (
       console.log('signature', signature)
       console.log('constructEvent')
       const event = stripe.webhooks.constructEvent(
-        buf,
+        req.body,
         signature,
         webhookSecret
       ) as any;
