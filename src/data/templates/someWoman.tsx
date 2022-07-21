@@ -85,8 +85,8 @@ export const THINGS_TO_NEVER_WEAR: Template = {
           />
         </div>
 
-        <h1
-          className="absolute z-20 bg-white text-black text-5xl p-4"
+        <div
+          className="absolute z-20 bg-white text-black text-4xl p-4"
           style={{
             right: '120px',
             top: '80px',
@@ -94,8 +94,8 @@ export const THINGS_TO_NEVER_WEAR: Template = {
           }}
         >
           {options.line1Text}
-        </h1>
-        <h1
+        </div>
+        <div
           className="absolute z-10 bg-black text-orange-400 text-8xl p-4 pl-8 pr-8"
           style={{
             right: '120px',
@@ -103,8 +103,8 @@ export const THINGS_TO_NEVER_WEAR: Template = {
           }}
         >
           {options.line2Text}
-        </h1>
-        <h1
+        </div>
+        <div
           className="absolute z-10 text-black text-6xl"
           style={{
             right: '210px',
@@ -112,7 +112,7 @@ export const THINGS_TO_NEVER_WEAR: Template = {
           }}
         >
           {options.line3Text}
-        </h1>
+        </div>
       </div>
     );
   },

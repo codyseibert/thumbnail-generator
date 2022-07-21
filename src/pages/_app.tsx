@@ -47,9 +47,11 @@ function MyApp({
         <link rel="shortcut icon" href="/favicon.ico?v=2" />
       </Head>
       <SessionProvider session={session}>
-        <Component {...pageProps} />
+        <div className='flex flex-col'>
+          <Component {...pageProps} />
+          <Footer />
+        </div>
       </SessionProvider>
-      <Footer />
     </>
   );
 }

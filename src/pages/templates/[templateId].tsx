@@ -11,12 +11,12 @@ export default function GeneratePage() {
   const templateId = router.query.templateId as string;
 
   return (
-    <div className="">
+    <div>
       <Head>
         <title>Generate Thumbnail</title>
       </Head>
       <Header />
-      <div className="flex h-screen">
+      <div className="flex">
         <TemplatePanel templateId={templateId} />
         <TemplateOptionsPanel />
         <TemplatePreview />
