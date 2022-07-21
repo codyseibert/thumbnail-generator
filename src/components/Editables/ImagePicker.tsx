@@ -12,10 +12,11 @@ export const ImagePicker: FC<EditableComponentProps> = ({
   const [showImageSelectModal, setShowImageSelectModal] = useState(false)
 
   return (
-    <div className="mb-8">
-      <h2>Add Image. Reccomded is 400 x 500 and up.</h2>
+    <div className="mb-8 flex flex-col justify-items-start">
+      <h2>{editable.label}</h2>
       <input
         type="file"
+        className='mb-4'
         onChange={(e) => {
           if (!e.target.files) return;
           setOptions({
@@ -28,7 +29,7 @@ export const ImagePicker: FC<EditableComponentProps> = ({
       <button
         onClick={() => setShowImageSelectModal(true)}
         className={PRIMARY_BUTTON}>
-        Select Image
+        Browse Library
       </button>
       {showImageSelectModal && <ImageSelectModal
         onClose={() => setShowImageSelectModal(false)}

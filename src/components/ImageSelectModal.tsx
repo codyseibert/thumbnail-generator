@@ -1,5 +1,6 @@
 import { PRIMARY_BUTTON } from '@/classes/buttons';
 import { trpc } from '@/utils/trpc'
+import { XCircle } from 'phosphor-react';
 import React, { useEffect } from 'react'
 
 const ImageCard = (
@@ -50,7 +51,12 @@ const ImageSelectModal = (
             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 overflow-y-auto">
               <div className="sm:flex sm:justify-center">
                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                  <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">Your Images</h3>
+                  <div className="flex justify-between">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">Your Images</h3>
+                    <button onClick={onClose}>
+                      <XCircle className="cursor-pointer hover:text-gray-700" size={32} />
+                    </button>
+                  </div>
                   <div className="mt-2 grid grid-cols-4 gap-5">
                     {images?.map(image => <ImageCard
                       key={image.id}
