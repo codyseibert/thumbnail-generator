@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <footer id="footer" className="relative z-50 bg-white text-gray-800">
+    <footer id="footer" className="relative z-10 bg-white text-gray-800">
       <div
         tabIndex={0}
         aria-label="footer"
